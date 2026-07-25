@@ -27,7 +27,7 @@ namespace Content.Scripts.Managers.FSM.States
 
         public override void EscalateHazard()
         {
-            // Instead of Instantiate, we simply enable the pre-existing hazard object!
+            // Enables the hazard game object
             if (m_HazardObjects != null && m_HazardObjects.Length > m_CurrentHazardIndex)
             {
                 GameObject selectedHazard = m_HazardObjects[m_CurrentHazardIndex];
