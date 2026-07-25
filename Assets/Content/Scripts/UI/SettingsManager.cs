@@ -1,7 +1,7 @@
 ﻿using Managers;
 using UnityEngine;
 
-namespace Menus
+namespace Content.Scripts.UI
 {
     public class SettingsManager : MonoBehaviour
     {
