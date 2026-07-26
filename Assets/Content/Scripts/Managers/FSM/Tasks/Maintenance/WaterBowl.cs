@@ -41,62 +41,75 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         {
             //Uses the parent to initially hide the UI
             base.Awake();
+        }
 
+        protected override void OnUIEnabled()
+        {
             if (m_MiniGameUI == null || m_MiniGameUI.rootVisualElement == null) return;
+
             var root = m_MiniGameUI.rootVisualElement;
 
-            // Queries pipes in order
-            // Assumes they are ordered top-left to bottom-right in the UI builder
-            root.Query<VisualElement>(className: "pipe-cell").ToList(m_PipeElements);
-
-            // Initialises the graph data array to match the amount of UI elements
-            m_PipeNodes = new PipeNode[m_PipeElements.Count];
-
-            for (int i = 0; i < m_PipeElements.Count; ++i)
+            if (m_PipeElements.Count == 0)
             {
-                // Needed so the lambda can reference a local instance of i
-                // If 'i' was referenced directly the reference would just be the final iteration
-                // Only needs to be done in for loops with lambdas, for each doesn't need that  
-                int index = i;
-                VisualElement pipeVisual = m_PipeElements[i];
+                root.Query<VisualElement>(className: "pipe-cell").ToList(m_PipeElements);
 
-                // Default value (empty) - used if no class matches
-                m_PipeNodes[i] = new PipeNode(false, false, false, false);
+                m_PipeNodes = new PipeNode[m_PipeElements.Count];
 
-                // Checks UI against the dictionary
-                foreach (var pipeType in m_PipeTemplates)
+                for (var i = 0; i < m_PipeElements.Count; ++i)
                 {
-                    // If the UI class matches
-                    if (pipeVisual.ClassListContains(pipeType.Key))
+                    var pipeVisual = m_PipeElements[i];
+
+                    m_PipeNodes[i] = new PipeNode(false, false, false, false);
+
+                    foreach (var pipeType in m_PipeTemplates)
+                        if (pipeVisual.ClassListContains(pipeType.Key))
+                        {
+                            var template = pipeType.Value;
+                            m_PipeNodes[i] = new PipeNode(template.HasTop, template.HasRight, template.HasBottom,
+                                template.HasLeft);
+                            break;
+                        }
+                }
+
+                for (var i = 0; i < m_PipeElements.Count; i++)
+                {
+                    if (m_PipeElements[i].ClassListContains("type-source")) m_StartIndex = i;
+
+                    if (m_PipeElements[i].ClassListContains("type-end")) m_TargetIndex = i;
+                }
+
+                for (var i = 0; i < m_PipeElements.Count; ++i)
+                {
+                    var index = i;
+                    m_PipeElements[i].RegisterCallback<ClickEvent>(_ => RotatePipe(index));
+                }
+
+                DiagnosticInitCheck();
+            }
+
+            for (var i = 0; i < m_PipeElements.Count; ++i) m_PipeElements[i].pickingMode = PickingMode.Position;
+        }
+
+        protected override void ResetTask()
+        {
+            foreach (var pipeVisual in m_PipeElements)
+            {
+                pipeVisual.style.rotate = new StyleRotate(new Rotate(new Angle(0, AngleUnit.Degree)));
+                pipeVisual.pickingMode = PickingMode.Position;
+            }
+
+            for (var i = 0; i < m_PipeElements.Count; ++i)
+            {
+                m_PipeNodes[i] = new PipeNode(false, false, false, false);
+                foreach (var pipeType in m_PipeTemplates)
+                    if (m_PipeElements[i].ClassListContains(pipeType.Key))
                     {
-                        // Clone the template so each individual pipe tracks its own rotation separately
-                        PipeNode template = pipeType.Value;
+                        var template = pipeType.Value;
                         m_PipeNodes[i] = new PipeNode(template.HasTop, template.HasRight, template.HasBottom,
                             template.HasLeft);
-                        break; // Found the matching pipe type class, so stop checking the dictionary
+                        break;
                     }
-                }
-
-                // Register the native UI Toolkit click event to rotate this specific pipe
-                m_PipeElements[i].RegisterCallback<ClickEvent>(_ => RotatePipe(index));
             }
-
-            // Automatically find where the Tap and Bowl are located in the grid list
-            for (int i = 0; i < m_PipeElements.Count; i++)
-            {
-                if (m_PipeElements[i].ClassListContains("type-source"))
-                {
-                    m_StartIndex = i;
-                }
-
-                if (m_PipeElements[i].ClassListContains("type-end"))
-                {
-                    m_TargetIndex = i;
-                }
-            }
-
-            // Call the diagnostic right before Awake finishes
-            DiagnosticInitCheck();
         }
 
         /// <summary>

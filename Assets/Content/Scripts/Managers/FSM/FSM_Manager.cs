@@ -59,7 +59,6 @@ namespace Content.Scripts.Managers.FSM
 
         private void Start()
         {
-            print("aa");
             StartCoroutine(CatBrainLoop());
         }
 

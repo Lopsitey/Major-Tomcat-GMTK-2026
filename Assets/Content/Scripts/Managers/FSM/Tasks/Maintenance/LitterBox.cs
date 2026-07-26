@@ -23,31 +23,81 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         {
             base.Awake();
 
-            if (m_MiniGameUI == null || m_MiniGameUI.rootVisualElement == null) return;
-            var root = m_MiniGameUI.rootVisualElement;
+            // Don't query UI elements yet - wait until OnUIEnabled
+            m_RemovedPooCount = 0;
+        }
 
-            // Query all tray elements
-            root.Query<VisualElement>(className: "litter-tray").ToList(m_TrayElements);
-
-            // Query the poo element
-            m_PooElement = root.Q<VisualElement>("litter-poo");
-
-            // Randomly select which tray hides the poo
-            m_PooTrayIndex = Random.Range(0, m_TrayElements.Count);
-
-            // Position the poo under the selected tray
-            UpdatePooPosition();
-
-            // Register click handlers for all trays
-            for (var i = 0; i < m_TrayElements.Count; i++)
+        protected override void OnUIEnabled()
+        {
+            // Query UI elements now that UIDocument is guaranteed to exist
+            if (m_MiniGameUI == null || m_MiniGameUI.rootVisualElement == null)
             {
-                var index = i;
-                m_TrayElements[i].RegisterCallback<ClickEvent>(_ => SelectTray(index));
+                Debug.LogError("LitterBox: UIDocument not found!");
+                return;
             }
 
-            // Register click handler for the poo
-            if (m_PooElement != null) m_PooElement.RegisterCallback<ClickEvent>(_ => RemovePoo());
+            var root = m_MiniGameUI.rootVisualElement;
 
+            // Only query trays once
+            if (m_TrayElements.Count == 0)
+            {
+                root.Query<VisualElement>(className: "litter-tray").ToList(m_TrayElements);
+                Debug.Log($"LitterBox: Found {m_TrayElements.Count} trays");
+
+                // Query the poo element
+                m_PooElement = root.Q<VisualElement>("litter-poo");
+                Debug.Log($"LitterBox: Poo element found: {m_PooElement != null}");
+
+                // Randomly select which tray hides the poo
+                m_PooTrayIndex = Random.Range(0, m_TrayElements.Count);
+
+                // Position the poo under the selected tray
+                UpdatePooPosition();
+
+                // Register click handlers ONCE - they persist
+                for (var i = 0; i < m_TrayElements.Count; i++)
+                {
+                    var index = i;
+                    m_TrayElements[i].RegisterCallback<ClickEvent>(_ =>
+                    {
+                        Debug.Log($"LitterBox: Tray {index} clicked!");
+                        SelectTray(index);
+                    });
+                }
+
+                if (m_PooElement != null)
+                    m_PooElement.RegisterCallback<ClickEvent>(_ =>
+                    {
+                        Debug.Log("LitterBox: Poo clicked!");
+                        RemovePoo();
+                    });
+            }
+
+            // Ensure all trays have proper picking mode when UI is shown
+            for (var i = 0; i < m_TrayElements.Count; i++) m_TrayElements[i].pickingMode = PickingMode.Position;
+
+            if (m_PooElement != null) m_PooElement.pickingMode = PickingMode.Position;
+        }
+
+        protected override void ResetTask()
+        {
+            // Reset all trays to visible and re-enable interactions
+            for (var i = 0; i < m_TrayElements.Count; i++)
+            {
+                var tray = m_TrayElements[i];
+                tray.style.opacity = 1f;
+                tray.pickingMode = PickingMode.Position;
+            }
+
+            // Reset poo
+            if (m_PooElement != null)
+            {
+                m_PooElement.style.opacity = 0f;
+                m_PooElement.pickingMode = PickingMode.Ignore;
+            }
+
+            // Pick new random tray
+            m_PooTrayIndex = Random.Range(0, m_TrayElements.Count);
             m_RemovedPooCount = 0;
         }
 

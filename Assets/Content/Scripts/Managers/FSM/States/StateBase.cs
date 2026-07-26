@@ -14,8 +14,8 @@ namespace Content.Scripts.Managers.FSM.States
         public bool IsComplete { get; protected set; }
         public bool IsActive { get; protected set; }
 
-        protected int m_CurrentHazardIndex;
-        protected int m_CurrentMaintenanceIndex;
+        protected int m_CurrentHazardIndex = -1;
+        protected int m_CurrentMaintenanceIndex = -1;
 
         protected StateBase(FSM_Manager owner)
         {
@@ -30,16 +30,15 @@ namespace Content.Scripts.Managers.FSM.States
             IsActive = true;
             IsComplete = false;
 
+            // Deactivate ALL previous tasks first
+            if (Owner.MaintenanceObjects != null)
+                foreach (var task in Owner.MaintenanceObjects)
+                    if (task && task.activeInHierarchy)
+                        task.SetActive(false);
+
             // Roll random maintenance task to display
             if (Owner.MaintenanceObjects != null && Owner.MaintenanceObjects.Length > 0)
             {
-                // Deactivate previous task if it's different
-                if (m_CurrentMaintenanceIndex >= 0 && m_CurrentMaintenanceIndex < Owner.MaintenanceObjects.Length)
-                {
-                    var prevTask = Owner.MaintenanceObjects[m_CurrentMaintenanceIndex];
-                    if (prevTask && prevTask.activeInHierarchy) prevTask.SetActive(false);
-                }
-
                 m_CurrentMaintenanceIndex = Random.Range(0, Owner.MaintenanceObjects.Length);
                 GameObject maintenanceTask = Owner.MaintenanceObjects[m_CurrentMaintenanceIndex];
 

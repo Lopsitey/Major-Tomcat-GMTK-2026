@@ -1,13 +1,12 @@
 #region
 
-using Content.Scripts.Managers;
 using UnityEngine;
 
 #endregion
 
 namespace Content.Scripts.UI
 {
-    public sealed class PauseMenu : Singleton<PauseMenu>
+    public sealed class PauseMenu : MonoBehaviour
     {
         [SerializeField] private GameObject m_PausePanel;
 

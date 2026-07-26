@@ -12,12 +12,10 @@ namespace Content.Scripts.Managers
     {
         private static UIManager GlobalUI => UIManager.Instance;
 
-        [Header("Game Settings")]
-        [SerializeField]
-        private float m_TimeRemaining = 30f;
+        [Header("Game Settings")] [SerializeField]
+        private float m_TimeRemaining = 120f;
 
-        [Header("Rocket Animation")]
-        [SerializeField]
+        [Header("Rocket Animation")] [SerializeField]
         private Animator m_RocketAnimator;
 
         private int m_ActiveLivingQuartersTasks;

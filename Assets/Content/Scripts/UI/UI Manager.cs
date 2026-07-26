@@ -27,7 +27,7 @@ namespace Content.Scripts.UI
         // External scripts (TaskManager, CatManager) simply update these values
         // Because of [CreateProperty], the UI will update itself automatically
 
-        [CreateProperty] public float LaunchCountdown { get; set; } = 300f;
+        [CreateProperty] public float LaunchCountdown { get; set; } = 120f;
 
         //SIDE-EFFECT PROPERTIES
         //Use a standard property setter visual changes (CSS stuff)
@@ -57,11 +57,14 @@ namespace Content.Scripts.UI
         private static CameraController CameraController =>
             CameraController.Instance; //Sets the camera controller using the Singleton instance
 
+        private PauseMenu m_PauseMenu;
+
         protected override void Awake()
         {
             //Calls the singleton awake to ensure there are no duplicates of this manager
             base.Awake();
 
+            m_PauseMenu = GetComponent<PauseMenu>();
             m_UIDoc = GetComponent<UIDocument>();
             if (!m_UIDoc) return;
             m_UIRoot = m_UIDoc.rootVisualElement;
@@ -84,7 +87,7 @@ namespace Content.Scripts.UI
             m_PatienceBarsContainer = m_UIRoot.Q<VisualElement>("Patience-Bars-Container");
 
             //Register the events
-            if (m_PauseButton != null) m_PauseButton.clicked += PauseMenu.Instance.TogglePausePanel;
+            if (m_PauseButton != null && m_PauseMenu) m_PauseButton.clicked += m_PauseMenu.TogglePausePanel;
 
             if (m_UpArrowButton != null && CameraController != null)
                 m_UpArrowButton.clicked += CameraController.MoveUp;
@@ -92,9 +95,10 @@ namespace Content.Scripts.UI
             if (m_DownArrowButton != null && CameraController != null)
                 m_DownArrowButton.clicked += CameraController.MoveDown;
         }
-        
+
         private void SetupBindings()
-        {//These replace the need for Update() polling completely
+        {
+            //These replace the need for Update() polling completely
             var countdownBinding = new DataBinding
             {
                 dataSource = this,

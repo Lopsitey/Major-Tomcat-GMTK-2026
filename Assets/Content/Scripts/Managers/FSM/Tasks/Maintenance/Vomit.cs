@@ -20,17 +20,36 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         {
             base.Awake();
 
+            m_CleanedSpots = 0;
+        }
+
+        protected override void OnUIEnabled()
+        {
             if (m_MiniGameUI == null || m_MiniGameUI.rootVisualElement == null) return;
+
             var root = m_MiniGameUI.rootVisualElement;
 
-            // Query all vomit spot elements
-            root.Query<VisualElement>(className: "vomit-spot").ToList(m_VomitSpots);
+            if (m_VomitSpots.Count == 0)
+            {
+                root.Query<VisualElement>(className: "vomit-spot").ToList(m_VomitSpots);
 
-            // Register click handlers for all vomit spots
+                for (var i = 0; i < m_VomitSpots.Count; i++)
+                {
+                    var index = i;
+                    m_VomitSpots[i].RegisterCallback<ClickEvent>(_ => CleanSpot(index));
+                }
+            }
+
+            for (var i = 0; i < m_VomitSpots.Count; i++) m_VomitSpots[i].pickingMode = PickingMode.Position;
+        }
+
+        protected override void ResetTask()
+        {
             for (var i = 0; i < m_VomitSpots.Count; i++)
             {
-                var index = i;
-                m_VomitSpots[i].RegisterCallback<ClickEvent>(_ => CleanSpot(index));
+                var spot = m_VomitSpots[i];
+                spot.style.opacity = 1f;
+                spot.pickingMode = PickingMode.Position;
             }
 
             m_CleanedSpots = 0;

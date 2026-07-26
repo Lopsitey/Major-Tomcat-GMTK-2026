@@ -17,11 +17,13 @@ namespace Content.Scripts.Input
         private static CameraController CameraController =>
             CameraController.Instance; // Get the singleton instance of CameraController
 
-        private static PauseMenu PauseManager => PauseMenu.Instance;
+        private PauseMenu m_PauseManager;
 
         private void Awake()
-            => m_ActionMap = new InputSystem_Actions();
-
+        {
+            m_ActionMap = new InputSystem_Actions();
+            m_PauseManager = GetComponent<PauseMenu>();
+        }
 
         private void OnEnable()
         {
@@ -47,9 +49,9 @@ namespace Content.Scripts.Input
         /// <param name="obj"></param>
         private void Handle_PausePerformed(InputAction.CallbackContext obj)
         {
-            if (!PauseManager) return;
+            if (!m_PauseManager) return;
 
-            PauseManager.TogglePausePanel();
+            m_PauseManager.TogglePausePanel();
         }
 
         private void HandleNavigatePerformed(InputAction.CallbackContext context)

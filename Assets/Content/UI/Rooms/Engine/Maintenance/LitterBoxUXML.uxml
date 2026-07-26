@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
          editor-extension-mode="False">
-    <Style src="project://database/Assets/Content/UI/Rooms/Cockpit/Maintenance/LitterBoxUSS.uss?fileID=7433441132597879392&amp;guid=litter-box-uss-guid&amp;type=3#LitterBoxUSS"/>
+    <Style src="project://database/Assets/Content/UI/Rooms/Engine/Maintenance/LitterBoxUSS.uss?fileID=7433441132597879392&amp;guid=573b968612a7887458a6575d3b2abc4e&amp;type=3#LitterBoxUSS"/>
     <ui:VisualElement class="litter-container">
         <ui:Label text="Find the Poo!" class="litter-title"/>
         <ui:VisualElement class="trays-grid">
@@ -9,6 +9,7 @@
             <ui:VisualElement class="litter-tray"/>
             <ui:VisualElement class="litter-tray"/>
         </ui:VisualElement>
-        <ui:VisualElement name="litter-poo" class="litter-poo"/>
+        <ui:VisualElement name="litter-poo" class="litter-poo"
+                          style="background-image: url(&quot;project://database/Assets/Media/Poo/3_poo.png?fileID=-1078356224&amp;guid=70051324f6ff1ea488f9762c7abcb80f&amp;type=3#big poo&quot;);"/>
     </ui:VisualElement>
 </ui:UXML>
