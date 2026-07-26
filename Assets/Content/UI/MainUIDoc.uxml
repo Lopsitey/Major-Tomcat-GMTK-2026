@@ -1,11 +1,11 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Content/UI/MainUIStyles.uss?fileID=7433441132597879392&amp;guid=31b6dc0e23eae724687acf0819769a9d&amp;type=3#MainUIStyles" />
     <ui:VisualElement name="Danger-Overlay" class="default-danger-overlay" style="visibility: visible; display: none;" />
-    <ui:Label text="Countdown" name="Countdown-Label" enable-rich-text="true" class="countdown-label" style="justify-content: flex-start; align-items: center; align-content: flex-start; align-self: center;" />
-    <ui:Button text="Pause&#10;" name="Pause-Button" class="pause-button" />
+    <ui:Label text="Countdown" name="Countdown-Label" enable-rich-text="true" class="countdown-label" style="justify-content: flex-start; align-items: center; align-content: flex-start; align-self: center; -unity-font-definition: url(&quot;project://database/Assets/Zac/SeaPonkle.ttf?fileID=12800000&amp;guid=6ef75df252ffc414d8694c611380992c&amp;type=3#SeaPonkle&quot;);" />
+    <ui:Button text="Pause&#10;" name="Pause-Button" class="pause-button" style="-unity-font-definition: url(&quot;project://database/Assets/Zac/SeaPonkle.ttf?fileID=12800000&amp;guid=6ef75df252ffc414d8694c611380992c&amp;type=3#SeaPonkle&quot;); white-space: nowrap;" />
     <ui:GroupBox name="ArrowBox" class="arrow-box">
-        <ui:Button text="Up" name="Arrow-Up" />
-        <ui:Button text="Down&#10;" name="Arrow-Down" />
+        <ui:Button text="Up" name="Arrow-Up" style="-unity-font-definition: url(&quot;project://database/Assets/Zac/SeaPonkle.ttf?fileID=12800000&amp;guid=6ef75df252ffc414d8694c611380992c&amp;type=3#SeaPonkle&quot;);" />
+        <ui:Button text="Down&#10;" name="Arrow-Down" style="-unity-font-definition: url(&quot;project://database/Assets/Zac/SeaPonkle.ttf?fileID=12800000&amp;guid=6ef75df252ffc414d8694c611380992c&amp;type=3#SeaPonkle&quot;);" />
     </ui:GroupBox>
     <ui:ProgressBar value="50" title="task patience" name="Patience-Bar" high-value="60" style="align-self: flex-start; display: none;" />
 </ui:UXML>
