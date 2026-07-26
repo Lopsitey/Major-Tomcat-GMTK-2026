@@ -4,7 +4,7 @@ using UnityEngine;
 
 #endregion
 
-namespace Managers
+namespace Content.Scripts.Managers
 {
     /// <summary>
     /// A persistent Singleton base class which

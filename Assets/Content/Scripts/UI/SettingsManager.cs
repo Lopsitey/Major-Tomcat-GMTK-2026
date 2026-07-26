@@ -1,9 +1,13 @@
-﻿using Managers;
+﻿#region
+
+using Managers;
 using UnityEngine;
+
+#endregion
 
 namespace Content.Scripts.UI
 {
-    public class SettingsManager : MonoBehaviour
+    public sealed class SettingsManager : MonoBehaviour
     {
         public void SetMasterVolume(float volume)
         {

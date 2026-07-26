@@ -1,18 +1,14 @@
-﻿using UnityEngine;
-
-namespace Content.Scripts.Managers.FSM.States
+﻿namespace Content.Scripts.Managers.FSM.States
 {
     public sealed class LivingQuarters : StateBase
     {
-        public LivingQuarters(FSM_Manager owner, GameObject[] hazardObjects) : base(owner, hazardObjects) { }
-        protected override void UpdateCat()
+        public LivingQuarters(FSM_Manager owner) : base(owner)
         {
-            //
         }
 
-        public override void EscalateHazard()
+        protected override void UpdateCat()
         {
-            //
+            //Animation for the cat?
         }
     }
 }

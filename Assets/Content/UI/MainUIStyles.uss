@@ -1,1 +1,50 @@
-VisualElement {}
+VisualElement {
+}
+
+.countdown-label {
+    align-self: center;
+    align-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    color: white;
+}
+
+.arrow-box {
+    align-self: flex-end;
+    align-items: stretch;
+    top: 45%;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    margin-right: 5px;
+    min-height: auto;
+    max-height: none;
+    height: 30%;
+}
+
+.pause-button {
+    align-self: flex-start;
+    align-items: flex-start;
+    top: auto;
+    bottom: 8%;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.default-danger-overlay {
+    flex-grow: 1;
+}
+
+.danger-flash-active {
+    border-top-width: 50px;
+    border-right-width: 50px;
+    border-bottom-width: 50px;
+    border-left-width: 50px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left-color: rgba(255, 0, 0, 0.31);
+    border-right-color: rgba(255, 0, 0, 0.31);
+    border-top-color: rgba(255, 0, 0, 0.31);
+    border-bottom-color: rgba(255, 0, 0, 0.31);
+}

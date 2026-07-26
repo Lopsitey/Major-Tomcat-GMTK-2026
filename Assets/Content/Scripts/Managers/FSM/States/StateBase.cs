@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿#region
+
+using UnityEngine;
+
+#endregion
 
 namespace Content.Scripts.Managers.FSM.States
 {
@@ -6,34 +10,79 @@ namespace Content.Scripts.Managers.FSM.States
     {
         // ReSharper disable once InconsistentNaming
         protected readonly FSM_Manager Owner;
-        protected readonly GameObject[] m_HazardObjects; // Pre-placed in the room
+
         public bool IsComplete { get; protected set; }
         public bool IsActive { get; protected set; }
-        
+
         protected int m_CurrentHazardIndex;
-        protected StateBase(FSM_Manager owner, GameObject[] hazardObjects)
+        protected int m_CurrentMaintenanceIndex;
+
+        protected StateBase(FSM_Manager owner)
         {
             Owner = owner;
-            m_HazardObjects = hazardObjects;
         }
 
         /// <summary>
-        /// Ensures the state is locked.
+        ///     Ensures the state is locked.
         /// </summary>
         public virtual void Enter()
         {
             IsActive = true;
             IsComplete = false;
+
+            // Roll random maintenance task to display
+            if (Owner.MaintenanceObjects != null && Owner.MaintenanceObjects.Length > 0)
+            {
+                m_CurrentMaintenanceIndex = Random.Range(0, Owner.MaintenanceObjects.Length);
+                GameObject maintenanceTask = Owner.MaintenanceObjects[m_CurrentMaintenanceIndex];
+
+                if (maintenanceTask)
+                {
+                    maintenanceTask.SetActive(true); //Now visible and clickable
+                    Debug.Log($"Maintenance task activated: {maintenanceTask.name}");
+                }
+            }
+
+            Debug.Log($"Cat is tampering with task {m_CurrentMaintenanceIndex}.");
         }
 
         /// <summary>
-        /// Ensures the state is unlocked.
+        ///     For when the maintenance timer runs out and the player has not completed the task in time. This will escalate to a
+        ///     hazard.
         /// </summary>
-        public virtual void Exit() 
-            => IsActive = false;
+        public virtual void EscalateHazard()
+        {
+            // Disable the current maintenance task
+            if (Owner.MaintenanceObjects != null && Owner.MaintenanceObjects.Length > m_CurrentMaintenanceIndex)
+            {
+                GameObject maintenanceTask = Owner.MaintenanceObjects[m_CurrentMaintenanceIndex];
+                if (maintenanceTask)
+                {
+                    maintenanceTask.SetActive(false);
+                    Debug.Log($"Maintenance task deactivated: {maintenanceTask.name}");
+                }
+            }
+
+            // Roll random hazard to spawn
+            if (Owner.HazardObjects != null && Owner.HazardObjects.Length > 0)
+            {
+                m_CurrentHazardIndex = Random.Range(0, Owner.HazardObjects.Length);
+                GameObject selectedHazard = Owner.HazardObjects[m_CurrentHazardIndex];
+
+                if (selectedHazard)
+                {
+                    // Enables the hazard and UI
+                    selectedHazard.SetActive(true);
+                    Debug.Log($"Hazard activated: {selectedHazard.name}");
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Ensures the state is unlocked.
+        /// </summary>
+        public void Exit() => IsActive = false;
 
         protected abstract void UpdateCat();
-
-        public abstract void EscalateHazard();
     }
 }

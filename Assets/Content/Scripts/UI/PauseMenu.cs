@@ -1,26 +1,28 @@
+#region
+
+using Content.Scripts.Managers;
 using UnityEngine;
+
+#endregion
 
 namespace Content.Scripts.UI
 {
-    public class PauseMenu : MonoBehaviour
+    public sealed class PauseMenu : Singleton<PauseMenu>
     {
         [SerializeField] private GameObject m_PausePanel;
 
-        private bool m_PausePanelOpen = false;
-    
+        private bool m_PausePanelOpen;
+
         public void TogglePausePanel()
         {
             m_PausePanelOpen = !m_PausePanelOpen;
             m_PausePanel.SetActive(m_PausePanelOpen);
+
+            // Toggle timescale between 0f (paused) and 1f (running)
+            Time.timeScale = m_PausePanelOpen ? 0f : 1f;
         }
 
-        public void CloseMenu()
-        {
-            m_PausePanelOpen = false;
-            m_PausePanel.SetActive(m_PausePanelOpen);
-        }
-        
         public void Quit()
-        => Application.Quit();
+            => Application.Quit();
     }
 }

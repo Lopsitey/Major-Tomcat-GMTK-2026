@@ -1,0 +1,30 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Living%20Quarters/Hazards/WaterBowlUSS.uss?fileID=7433441132597879392&amp;guid=2ae0ce1d70269244e9563237e7ec9e51&amp;type=3#WaterBowlUSS" />
+    <ui:VisualElement class="grid-container">
+        <ui:VisualElement class="pipe-cell type-source" />
+        <ui:VisualElement class="pipe-cell type-cross" />
+        <ui:VisualElement class="pipe-cell type-corner" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell type-straight-horizontal" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell type-straight-horizontal" />
+        <ui:VisualElement class="pipe-cell type-straight-vertical" />
+        <ui:VisualElement class="pipe-cell type-straight-horizontal" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell type-straight-horizontal" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell type-straight-vertical" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell" />
+        <ui:VisualElement class="pipe-cell type-straight-horizontal" />
+        <ui:VisualElement class="pipe-cell type-straight-horizontal" />
+        <ui:VisualElement class="pipe-cell type-corner" />
+        <ui:VisualElement class="pipe-cell type-straight-horizontal" />
+        <ui:VisualElement class="pipe-cell type-end" />
+    </ui:VisualElement>
+</ui:UXML>

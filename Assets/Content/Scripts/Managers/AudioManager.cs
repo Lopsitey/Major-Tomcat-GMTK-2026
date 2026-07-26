@@ -1,16 +1,23 @@
-﻿using UnityEngine;
+﻿#region
+
+using Content.Scripts.Managers;
+using UnityEngine;
+
+#endregion
+
 namespace Managers
-{ 
+{
     public class AudioManager : Singleton<AudioManager>
     {
         [Header("Volume Settings (0 to 1)")] [SerializeField] [Range(0f, 1f)]
         private float m_MasterVolume = 0.5f; //Controls the loudness of everything
 
-        [Header("Audio Clips")] 
-        [SerializeField] private AudioClip m_UIClip;
-        [SerializeField] private AudioClip m_catClip;//the sounds itself
+        [Header("Audio Clips")] [SerializeField]
+        private AudioClip m_UIClip;
 
-        private AudioSource m_SFXSource;//The component that actually plays the sound
+        [SerializeField] private AudioClip m_catClip; //the sounds itself
+
+        private AudioSource m_SFXSource; //The component that actually plays the sound
 
         protected override void Awake()
         {
@@ -18,6 +25,7 @@ namespace Managers
             //the component that actually plays the sound
             m_SFXSource = GetComponent<AudioSource>();
         }
+
 /*
         public void Init(CharacterMovement movement)
         {

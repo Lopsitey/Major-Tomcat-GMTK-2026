@@ -1,0 +1,50 @@
+VisualElement {
+}
+
+.grid-container {
+    width: 500px;
+    height: 500px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-self: center;
+    background-color: rgb(40, 40, 40);
+}
+
+.pipe-cell {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    transition-duration: 0.2s;
+    transition-property: rotate;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.type-tjunction {
+    background-image: url('project://database/Assets/Media/Pipes/tjunction.png');
+}
+
+.type-source {
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=1544844946&guid=75840724526e11e43af6ca085295a8d9&type=3#source");
+}
+
+.type-cross {
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-1206185368&guid=75840724526e11e43af6ca085295a8d9&type=3#cross");
+}
+
+.type-straight-horizontal {
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-1771988087&guid=75840724526e11e43af6ca085295a8d9&type=3#straight");
+}
+
+.type-straight-vertical {
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-1771988087&guid=75840724526e11e43af6ca085295a8d9&type=3#straight");
+    rotate: 90deg;
+}
+
+.type-corner {
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-1675557835&guid=75840724526e11e43af6ca085295a8d9&type=3#corner");
+    
+}
+
+.type-end {
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=1993782498&guid=75840724526e11e43af6ca085295a8d9&type=3#end");
+}

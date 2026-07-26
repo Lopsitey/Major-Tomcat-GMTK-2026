@@ -1,33 +1,43 @@
+#region
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManager : MonoBehaviour
+#endregion
+
+namespace Content.Scripts.UI
 {
-    [SerializeField] private GameObject m_menuPanel;
-    [SerializeField] private GameObject m_settingsPanel;
+    public sealed class MenuManager : MonoBehaviour
+    {
+        [SerializeField] private GameObject m_MenuPanel;
+        [SerializeField] private GameObject m_SettingsPanel;
 
-    private bool m_settingsPanelOpen = false;
+        private bool m_SettingsPanelOpen;
 
-    public void ToggleSettingsPanel() 
-    {
-        if (m_settingsPanelOpen) 
+        public void ToggleSettingsPanel()
         {
-            m_menuPanel.SetActive(true);//open the menu
-            m_settingsPanel.SetActive(false);//close the settings panel
+            if (m_SettingsPanelOpen)
+            {
+                m_MenuPanel.SetActive(true); //open the menu
+                m_SettingsPanel.SetActive(false); //close the settings panel
+            }
+            else
+            {
+                m_MenuPanel.SetActive(false); //otherwise close the menu
+                m_SettingsPanel.SetActive(true); //and open the settings panel
+            }
+
+            m_SettingsPanelOpen = !m_SettingsPanelOpen;
         }
-        else 
+
+        public void LoadGame()
         {
-            m_menuPanel.SetActive(false);//otherwise close the menu
-            m_settingsPanel.SetActive(true);//and open the settings panel
+            SceneManager.LoadScene("MainScene");
         }
-        m_settingsPanelOpen = !m_settingsPanelOpen;
-    }
-    public void LoadGame()
-    {
-        SceneManager.LoadScene("MainScene");
-    }
-    public void Quit() 
-    {
-        Application.Quit();
+
+        public void Quit()
+        {
+            Application.Quit();
+        }
     }
 }

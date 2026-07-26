@@ -1,19 +1,14 @@
-﻿using UnityEngine;
-
-namespace Content.Scripts.Managers.FSM.States
+﻿namespace Content.Scripts.Managers.FSM.States
 {
     public sealed class ElectricalRoom : StateBase
     {
-        public ElectricalRoom(FSM_Manager owner, GameObject[] hazardObjects) : base(owner, hazardObjects) { }
+        public ElectricalRoom(FSM_Manager owner) : base(owner)
+        {
+        }
 
         protected override void UpdateCat()
         {
             //Logic
-        }
-
-        public override void EscalateHazard()
-        {
-            //
         }
     }
 }
