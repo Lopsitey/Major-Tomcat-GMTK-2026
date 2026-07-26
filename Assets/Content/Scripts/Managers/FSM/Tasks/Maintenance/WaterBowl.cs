@@ -14,7 +14,7 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         private int m_GridWidth = 5;
 
         //UI refs
-        private List<VisualElement> m_PipeElements = new List<VisualElement>();
+        private readonly List<VisualElement> m_PipeElements = new();
         private PipeNode[] m_PipeNodes;
 
         //For the DFS search
@@ -55,7 +55,7 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
             for (int i = 0; i < m_PipeElements.Count; ++i)
             {
                 // Needed so the lambda can reference a local instance of i
-                // If i was referenced directly the reference would just be the final iteration
+                // If 'i' was referenced directly the reference would just be the final iteration
                 // Only needs to be done in for loops with lambdas, for each doesn't need that  
                 int index = i;
                 VisualElement pipeVisual = m_PipeElements[i];
@@ -78,7 +78,7 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
                 }
 
                 // Register the native UI Toolkit click event to rotate this specific pipe
-                m_PipeElements[i].RegisterCallback<ClickEvent>(evt => RotatePipe(index));
+                m_PipeElements[i].RegisterCallback<ClickEvent>(_ => RotatePipe(index));
             }
 
             // Automatically find where the Tap and Bowl are located in the grid list
@@ -129,14 +129,14 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         {
             Debug.Log("<color=green>[WaterBowl] PUZZLE SOLVED! Delaying close...</color>");
 
-            // 1. Immediately turn off raycasting for all pipes so the player can't keep clicking them
+            // Immediately turn off ray-casting for all pipes so the player can't keep clicking them
             foreach (var pipe in m_PipeElements)
             {
                 pipe.pickingMode = PickingMode.Ignore;
             }
 
-            // 2. Use UI Toolkit's native scheduler to wait 1 second (1000ms), then call CompleteTask()
-            m_MiniGameUI.rootVisualElement.schedule.Execute(() => CompleteTask()).StartingIn(1000);
+            // Use UI Toolkit's native scheduler to wait 1 second before running CompleteTask()
+            m_MiniGameUI.rootVisualElement.schedule.Execute(CompleteTask).StartingIn(1500);
         }
 
         #region Depth-First Search Algorithm
@@ -153,8 +153,8 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
             // Start the search from the Tap
             bool isSolved = DFS(m_StartIndex, visited);
 
-            // Paint the UI to show exactly which pipes the DFS added to the 'visited' list
-            DiagnosticVisualDebugPath(visited);
+            // Paint the UI to show exactly which pipes the DFS added to the visited list
+            if (isSolved) DisplayWaterPath(visited);
 
             return isSolved;
         }
@@ -163,13 +163,14 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         ///     A recursive algorithm that traces the physical path of the pipes.
         ///     It steps from node to node, checking all valid connections, until it hits a dead end or finds the target.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         private bool DFS(int currentIndex, HashSet<int> visited)
         {
-            // Won so return
-            if (currentIndex == m_TargetIndex) return true;
-
             // Mark this pipe as visited so we don't walk backwards or loop endlessly.
             visited.Add(currentIndex);
+
+            // Won so return
+            if (currentIndex == m_TargetIndex) return true;
 
             // Checks which pipes are actually physically connected to this one - validates grid edges
             List<int> connectedNeighbors = GetConnectedNeighbors(currentIndex);
@@ -263,21 +264,21 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         }
 
         /// <summary>
-        ///     Visually paints the UI Toolkit background colors to show exactly how far the DFS algorithm reached.
+        ///     Visually paints the UI Toolkit background colours to show exactly how far the DFS algorithm reached.
         /// </summary>
         /// <param name="visitedPath"></param>
-        private void DiagnosticVisualDebugPath(HashSet<int> visitedPath)
+        private void DisplayWaterPath(HashSet<int> visitedPath)
         {
-            // 1. Reset all pipes back to a transparent background
+            // Reset all pipes back to a transparent background
             foreach (var pipe in m_PipeElements)
             {
                 pipe.style.backgroundColor = new StyleColor(StyleKeyword.Null);
             }
 
-            // 2. Paint the currently connected path a semi-transparent red so you can physically see the logic
+            // Paint the currently connected path a semi-transparent red so you can physically see the logic
             foreach (int index in visitedPath)
             {
-                m_PipeElements[index].style.backgroundColor = new StyleColor(new Color(1f, 0f, 0f, 0.4f));
+                m_PipeElements[index].style.backgroundColor = new StyleColor(new Color(0f, 1f, 0f, 0.4f));
             }
         }
 

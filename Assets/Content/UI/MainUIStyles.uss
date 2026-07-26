@@ -48,3 +48,18 @@ VisualElement {
     border-top-color: rgba(255, 0, 0, 0.31);
     border-bottom-color: rgba(255, 0, 0, 0.31);
 }
+
+.patience-bars-container {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    width: 10%;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.patience-bar {
+    margin-bottom: 8px;
+    height: 20px;
+    min-width: 280px;
+}

@@ -22,10 +22,11 @@ namespace Content.Scripts.Managers.FSM
     // ReSharper disable once InconsistentNaming
     public sealed class FSM_Manager : MonoBehaviour
     {
-        private CatRoomAssignment m_AssignedRoom;
+        [SerializeField] private CatRoomAssignment m_AssignedRoom;
 
         [SerializeField] private GameObject[] m_MaintenanceObjects;
         [SerializeField] private GameObject[] m_HazardObjects; //Escalations
+        [SerializeField] private float m_MaxPatience = 20f;
 
         public GameObject[] MaintenanceObjects => m_MaintenanceObjects;
         public GameObject[] HazardObjects => m_HazardObjects;
@@ -39,8 +40,8 @@ namespace Content.Scripts.Managers.FSM
 
         private StateBase m_MaintenanceTask;
         private StateBase m_CurrentState;
-        
-        private ProgressBar m_FloatingPatienceBar;
+
+        private ProgressBar m_PatienceBar;
 
         private void Awake()
         {
@@ -56,8 +57,10 @@ namespace Content.Scripts.Managers.FSM
             };
         }
 
-        // Needed because most of this relies on the variables initialised in Awake
-        private void Start() => StartCoroutine(CatBrainLoop());
+        private void Start()
+        {
+            StartCoroutine(CatBrainLoop());
+        }
 
         private IEnumerator CatBrainLoop()
         {
@@ -68,22 +71,58 @@ namespace Content.Scripts.Managers.FSM
 
                 yield return new WaitForSeconds(Random.Range(5f, 10));
 
+                // Prevent new tasks in the final 10 seconds.
+                // If we are in the final countdown, skip spawning a task and loop back to the top (continue idling).
+                if (GameManager.Instance != null && GameManager.Instance.IsInFinalCountdown)
+                {
+                    Debug.Log("[FSM] Final 10 seconds reached. Cat is blocked from starting new tasks.");
+                    continue;
+                }
+                
                 // Maintenance RNG - calls enter on the room and starts the task
                 SwitchState(m_MaintenanceTask);
 
-                float patienceLimit = 60f; //player gets 1 min to fix the issue
+                // Create patience bar via UIManager
+                m_PatienceBar = GlobalUI.AddPatienceBar(m_AssignedRoom.ToString());
+
+                //Tells the GM the task is starting
+                GameManager.Instance.RegisterTaskState(m_AssignedRoom, true);
+
                 float timeInState = 0f;
 
                 // Runs while time remains and the task isn't done yet
-                while (timeInState < patienceLimit && !m_CurrentState.IsComplete)
+                while (timeInState < m_MaxPatience && !m_CurrentState.IsComplete)
                 {
                     timeInState += Time.deltaTime;
+                    m_CurrentState.CheckTaskCompletion();
 
-                    //updates UI
-                    m_FloatingPatienceBar.value = 1.0f - (timeInState / patienceLimit) * 100;
+                    // If task completed, remove patience bar immediately
+                    if (m_CurrentState.IsComplete && m_PatienceBar != null)
+                    {
+                        GlobalUI.RemovePatienceBar(m_PatienceBar);
+                        m_PatienceBar = null;
+                        break;
+                    }
+
+                    // Update the patience bar directly
+                    if (m_PatienceBar != null)
+                    {
+                        var remainingPercentage = (1f - timeInState / m_MaxPatience) * 100f;
+                        m_PatienceBar.value = remainingPercentage;
+                    }
 
                     yield return null;
                 }
+
+                // Remove the ProgressBar via UIManager (if not already removed)
+                if (m_PatienceBar != null)
+                {
+                    GlobalUI.RemovePatienceBar(m_PatienceBar);
+                    m_PatienceBar = null;
+                }
+
+                //Tells the GM the task is ending
+                GameManager.Instance.RegisterTaskState(m_AssignedRoom, false);
 
                 //Avoids hazard escalation if the task is complete
                 if (m_CurrentState.IsComplete)
@@ -94,9 +133,6 @@ namespace Content.Scripts.Managers.FSM
 
                 //Escalates the hazard for the specific room
                 m_CurrentState.EscalateHazard();
-
-                //Updates the global HUD
-                if (GlobalUI) GlobalUI.ActiveCleanupTasks++;
             }
             // ReSharper disable once IteratorNeverReturns
         }

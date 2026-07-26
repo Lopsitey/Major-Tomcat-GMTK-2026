@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Cockpit/Maintenance/LitterBoxUSS.uss?fileID=7433441132597879392&amp;guid=litter-box-uss-guid&amp;type=3#LitterBoxUSS"/>
+    <ui:VisualElement class="litter-container">
+        <ui:Label text="Find the Poo!" class="litter-title"/>
+        <ui:VisualElement class="trays-grid">
+            <ui:VisualElement class="litter-tray"/>
+            <ui:VisualElement class="litter-tray"/>
+            <ui:VisualElement class="litter-tray"/>
+            <ui:VisualElement class="litter-tray"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="litter-poo" class="litter-poo"/>
+    </ui:VisualElement>
+</ui:UXML>

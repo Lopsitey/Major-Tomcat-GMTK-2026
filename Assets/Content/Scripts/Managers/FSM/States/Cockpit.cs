@@ -1,4 +1,4 @@
-﻿namespace Content.Scripts.Managers.FSM.States
+namespace Content.Scripts.Managers.FSM.States
 {
     public sealed class Cockpit : StateBase
     {
@@ -8,7 +8,7 @@
 
         protected override void UpdateCat()
         {
-            //Logic
+            // Litter Box task logic is handled via UI interactions
         }
     }
 }

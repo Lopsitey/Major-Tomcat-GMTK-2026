@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Collections.Generic;
 using Content.Scripts.Managers;
 using Unity.Properties;
 using UnityEngine;
@@ -50,6 +51,9 @@ namespace Content.Scripts.UI
         private Button m_UpArrowButton;
         private Button m_DownArrowButton;
 
+        private VisualElement m_PatienceBarsContainer;
+        private readonly Dictionary<ProgressBar, VisualElement> m_PatienceBarContainers = new();
+
         private static CameraController CameraController =>
             CameraController.Instance; //Sets the camera controller using the Singleton instance
 
@@ -75,6 +79,9 @@ namespace Content.Scripts.UI
             m_PauseButton = m_UIRoot.Q<Button>("Pause-Button");
             m_UpArrowButton = m_UIRoot.Q<Button>("Arrow-Up");
             m_DownArrowButton = m_UIRoot.Q<Button>("Arrow-Down");
+
+            //Query the patience bars container
+            m_PatienceBarsContainer = m_UIRoot.Q<VisualElement>("Patience-Bars-Container");
 
             //Register the events
             if (m_PauseButton != null) m_PauseButton.clicked += PauseMenu.Instance.TogglePausePanel;
@@ -125,6 +132,53 @@ namespace Content.Scripts.UI
 
             // Toggles a CSS class that could make the screen go red
             m_DangerWarningOverlay.EnableInClassList("danger-flash-active", isInDanger);
+        }
+
+        /// <summary>
+        ///     Creates and adds a patience bar with a room label to the UI
+        /// </summary>
+        public ProgressBar AddPatienceBar(string roomName)
+        {
+            if (m_PatienceBarsContainer == null) return null;
+
+            // Create container for label and progress bar
+            var barContainer = new VisualElement();
+            barContainer.style.flexDirection = FlexDirection.Column;
+            barContainer.style.marginBottom = 8f;
+
+            // Create and add room label
+            var roomLabel = new Label(roomName);
+            roomLabel.style.fontSize = 12f;
+            roomLabel.style.marginBottom = 4f;
+            roomLabel.style.color = new Color(1f, 1f, 1f, 0.8f);
+            barContainer.Add(roomLabel);
+
+            // Create and add ProgressBar
+            var progressBar = new ProgressBar();
+            progressBar.AddToClassList("patience-bar");
+            progressBar.lowValue = 0f;
+            progressBar.highValue = 100f;
+            progressBar.value = 100f;
+            barContainer.Add(progressBar);
+
+            m_PatienceBarsContainer.Add(barContainer);
+            m_PatienceBarContainers[progressBar] = barContainer;
+
+            return progressBar;
+        }
+
+        /// <summary>
+        ///     Removes a patience bar from the UI
+        /// </summary>
+        public void RemovePatienceBar(ProgressBar progressBar)
+        {
+            if (progressBar == null || m_PatienceBarsContainer == null) return;
+
+            if (m_PatienceBarContainers.TryGetValue(progressBar, out var barContainer))
+            {
+                m_PatienceBarsContainer.Remove(barContainer);
+                m_PatienceBarContainers.Remove(progressBar);
+            }
         }
     }
 }

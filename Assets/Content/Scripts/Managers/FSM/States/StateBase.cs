@@ -83,6 +83,19 @@ namespace Content.Scripts.Managers.FSM.States
         /// </summary>
         public void Exit() => IsActive = false;
 
+        /// <summary>
+        ///     Called each frame to check if the current maintenance task is complete.
+        ///     Tasks complete themselves by calling CompleteTask() which deactivates their GameObject.
+        /// </summary>
+        public virtual void CheckTaskCompletion()
+        {
+            if (Owner.MaintenanceObjects != null && Owner.MaintenanceObjects.Length > m_CurrentMaintenanceIndex)
+            {
+                var maintenanceTask = Owner.MaintenanceObjects[m_CurrentMaintenanceIndex];
+                if (maintenanceTask && !maintenanceTask.activeInHierarchy) IsComplete = true;
+            }
+        }
+
         protected abstract void UpdateCat();
     }
 }
