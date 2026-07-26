@@ -59,6 +59,7 @@ namespace Content.Scripts.Managers.FSM
 
         private void Start()
         {
+            print("aa");
             StartCoroutine(CatBrainLoop());
         }
 
@@ -78,9 +79,16 @@ namespace Content.Scripts.Managers.FSM
                     Debug.Log("[FSM] Final 10 seconds reached. Cat is blocked from starting new tasks.");
                     continue;
                 }
-                
+
                 // Maintenance RNG - calls enter on the room and starts the task
                 SwitchState(m_MaintenanceTask);
+
+                // Remove any existing bar before creating a new one
+                if (m_PatienceBar != null)
+                {
+                    GlobalUI.RemovePatienceBar(m_PatienceBar);
+                    m_PatienceBar = null;
+                }
 
                 // Create patience bar via UIManager
                 m_PatienceBar = GlobalUI.AddPatienceBar(m_AssignedRoom.ToString());

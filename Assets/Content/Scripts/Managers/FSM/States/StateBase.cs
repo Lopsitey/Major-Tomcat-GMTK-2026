@@ -33,6 +33,13 @@ namespace Content.Scripts.Managers.FSM.States
             // Roll random maintenance task to display
             if (Owner.MaintenanceObjects != null && Owner.MaintenanceObjects.Length > 0)
             {
+                // Deactivate previous task if it's different
+                if (m_CurrentMaintenanceIndex >= 0 && m_CurrentMaintenanceIndex < Owner.MaintenanceObjects.Length)
+                {
+                    var prevTask = Owner.MaintenanceObjects[m_CurrentMaintenanceIndex];
+                    if (prevTask && prevTask.activeInHierarchy) prevTask.SetActive(false);
+                }
+
                 m_CurrentMaintenanceIndex = Random.Range(0, Owner.MaintenanceObjects.Length);
                 GameObject maintenanceTask = Owner.MaintenanceObjects[m_CurrentMaintenanceIndex];
 
