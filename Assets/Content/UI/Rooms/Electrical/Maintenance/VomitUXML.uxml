@@ -1,0 +1,13 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Electrical/Maintenance/VomitUSS.uss?fileID=7433441132597879392&amp;guid=vomit-uss-guid&amp;type=3#VomitUSS" />
+    <ui:VisualElement class="vomit-container">
+        <ui:Label text="Clean Up the Mess!" class="vomit-title" />
+        <ui:VisualElement class="vomit-area">
+            <ui:VisualElement class="vomit-spot" />
+            <ui:VisualElement class="vomit-spot" />
+            <ui:VisualElement class="vomit-spot" />
+            <ui:VisualElement class="vomit-spot" />
+            <ui:VisualElement class="vomit-spot" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
