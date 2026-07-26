@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ui="UnityEngine.UIElements"
-    xmlns:uie="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
->
-    
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Button style="height: 446px; background-image: url(&quot;project://database/Assets/Zac/splodge%201.png?fileID=2800000&amp;guid=e90c439c89b486a42a22dc72407cdb47&amp;type=3#splodge 1&quot;); background-color: rgba(188, 188, 188, 0); -unity-background-image-tint-color: rgb(255, 252, 109);" />
 </ui:UXML>
