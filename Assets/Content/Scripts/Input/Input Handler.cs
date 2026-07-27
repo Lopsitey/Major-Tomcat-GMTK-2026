@@ -73,10 +73,15 @@ namespace Content.Scripts.Input
 
         /// <summary>
         ///     Fires when the player clicks the mouse. Shoots a ray to find task objects in the world to make the UI appear.
+        ///     While a mini-game UI is open, world raycasts are skipped — UI Toolkit owns those clicks.
         /// </summary>
         private void Handle_InteractPerformed(InputAction.CallbackContext context)
         {
             if (!CameraController) return;
+
+            // Input ownership: mini-game open => no world interact; UI Toolkit handles the panel.
+            if (TaskBase.ActiveOpenTask != null)
+                return;
 
             // Gets the camera using the camera manager
             var nativeCamera = CameraController.GetComponent<Camera>();

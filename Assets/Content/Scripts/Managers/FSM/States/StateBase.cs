@@ -30,11 +30,16 @@ namespace Content.Scripts.Managers.FSM.States
             IsActive = true;
             IsComplete = false;
 
-            // Deactivate ALL previous tasks first
+            // Deactivate ALL previous tasks and hazards first
             if (Owner.MaintenanceObjects != null)
                 foreach (var task in Owner.MaintenanceObjects)
                     if (task && task.activeInHierarchy)
                         task.SetActive(false);
+
+            if (Owner.HazardObjects != null)
+                foreach (var hazard in Owner.HazardObjects)
+                    if (hazard && hazard.activeInHierarchy)
+                        hazard.SetActive(false);
 
             // Roll random maintenance task to display
             if (Owner.MaintenanceObjects != null && Owner.MaintenanceObjects.Length > 0)

@@ -17,6 +17,9 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         private readonly List<VisualElement> m_PipeElements = new();
         private PipeNode[] m_PipeNodes;
 
+        // Logical rotation in degrees (0/90/180/270) — do NOT read resolvedStyle (can desync).
+        private int[] m_PipeAngles;
+
         //For the DFS search
         private int m_StartIndex;
         private int m_TargetIndex;
@@ -47,69 +50,112 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         {
             if (m_MiniGameUI == null || m_MiniGameUI.rootVisualElement == null) return;
 
-            var root = m_MiniGameUI.rootVisualElement;
+            // Re-bind every open — UIDocument rebuilds the visual tree on enable
+            BindUI(m_MiniGameUI.rootVisualElement);
+        }
 
-            if (m_PipeElements.Count == 0)
-            {
-                root.Query<VisualElement>(className: "pipe-cell").ToList(m_PipeElements);
-
-                m_PipeNodes = new PipeNode[m_PipeElements.Count];
-
-                for (var i = 0; i < m_PipeElements.Count; ++i)
-                {
-                    var pipeVisual = m_PipeElements[i];
-
-                    m_PipeNodes[i] = new PipeNode(false, false, false, false);
-
-                    foreach (var pipeType in m_PipeTemplates)
-                        if (pipeVisual.ClassListContains(pipeType.Key))
-                        {
-                            var template = pipeType.Value;
-                            m_PipeNodes[i] = new PipeNode(template.HasTop, template.HasRight, template.HasBottom,
-                                template.HasLeft);
-                            break;
-                        }
-                }
-
-                for (var i = 0; i < m_PipeElements.Count; i++)
-                {
-                    if (m_PipeElements[i].ClassListContains("type-source")) m_StartIndex = i;
-
-                    if (m_PipeElements[i].ClassListContains("type-end")) m_TargetIndex = i;
-                }
-
-                for (var i = 0; i < m_PipeElements.Count; ++i)
-                {
-                    var index = i;
-                    m_PipeElements[i].RegisterCallback<ClickEvent>(_ => RotatePipe(index));
-                }
-
-                DiagnosticInitCheck();
-            }
-
-            for (var i = 0; i < m_PipeElements.Count; ++i) m_PipeElements[i].pickingMode = PickingMode.Position;
+        protected override void OnUIClosed()
+        {
+            m_PipeElements.Clear();
+            m_PipeNodes = null;
+            m_PipeAngles = null;
         }
 
         protected override void ResetTask()
         {
-            foreach (var pipeVisual in m_PipeElements)
-            {
-                pipeVisual.style.rotate = new StyleRotate(new Rotate(new Angle(0, AngleUnit.Degree)));
-                pipeVisual.pickingMode = PickingMode.Position;
-            }
+            // Visual/node reset happens in BindUI after the tree is rebuilt
+        }
+
+        private void BindUI(VisualElement root)
+        {
+            m_PipeElements.Clear();
+            root.Query<VisualElement>(className: "pipe-cell").ToList(m_PipeElements);
+
+            m_PipeNodes = new PipeNode[m_PipeElements.Count];
+            m_PipeAngles = new int[m_PipeElements.Count];
 
             for (var i = 0; i < m_PipeElements.Count; ++i)
             {
+                var pipeVisual = m_PipeElements[i];
+
                 m_PipeNodes[i] = new PipeNode(false, false, false, false);
+
+                // Straight-vertical uses the horizontal sprite drawn upright via a 90° rotate.
+                // Keep visual angle and PipeNode openings in lockstep from the start.
+                var initialAngle = 0;
+                if (pipeVisual.ClassListContains("type-straight-vertical"))
+                    initialAngle = 90;
+
+                m_PipeAngles[i] = initialAngle;
+
                 foreach (var pipeType in m_PipeTemplates)
-                    if (m_PipeElements[i].ClassListContains(pipeType.Key))
+                    if (pipeVisual.ClassListContains(pipeType.Key))
                     {
                         var template = pipeType.Value;
                         m_PipeNodes[i] = new PipeNode(template.HasTop, template.HasRight, template.HasBottom,
                             template.HasLeft);
                         break;
                     }
+
+                pipeVisual.style.rotate =
+                    new StyleRotate(new Rotate(new Angle(initialAngle, AngleUnit.Degree)));
+                pipeVisual.pickingMode = PickingMode.Position;
             }
+
+            m_StartIndex = 0;
+            m_TargetIndex = 0;
+            for (var i = 0; i < m_PipeElements.Count; i++)
+            {
+                if (m_PipeElements[i].ClassListContains("type-source")) m_StartIndex = i;
+
+                if (m_PipeElements[i].ClassListContains("type-end")) m_TargetIndex = i;
+            }
+
+            // Scramble rotatable pipes so the board takes real work to solve.
+            // Source/end stay fixed. Keep scrambling until the path is NOT already complete.
+            for (var attempt = 0; attempt < 24; attempt++)
+            {
+                for (var i = 0; i < m_PipeElements.Count; ++i)
+                {
+                    if (i == m_StartIndex || i == m_TargetIndex)
+                        continue;
+
+                    // Crosses are rotationally symmetric for connectivity — skip to bias scramble
+                    // onto corners / straights / T-junctions that actually change the maze.
+                    if (m_PipeElements[i].ClassListContains("type-cross"))
+                        continue;
+
+                    var turns = Random.Range(1, 4); // always at least one turn away from the authored pose
+                    for (var t = 0; t < turns; t++)
+                        ApplyRotation(i);
+                }
+
+                if (!IsPathConnected())
+                    break;
+            }
+
+            // Clear any leftover paint from connectivity probes
+            foreach (var pipe in m_PipeElements)
+                pipe.style.backgroundColor = new StyleColor(StyleKeyword.Null);
+
+            for (var i = 0; i < m_PipeElements.Count; ++i)
+            {
+                var index = i;
+                m_PipeElements[i].RegisterCallback<ClickEvent>(_ => RotatePipe(index));
+            }
+
+            DiagnosticInitCheck();
+        }
+
+        /// <summary>
+        ///     Applies one 90° clockwise step to both the visual and the PipeNode data.
+        /// </summary>
+        private void ApplyRotation(int index)
+        {
+            m_PipeAngles[index] = (m_PipeAngles[index] + 90) % 360;
+            m_PipeElements[index].style.rotate =
+                new StyleRotate(new Rotate(new Angle(m_PipeAngles[index], AngleUnit.Degree)));
+            m_PipeNodes[index].RotateClockwise();
         }
 
         /// <summary>
@@ -117,23 +163,13 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
         /// </summary>
         private void RotatePipe(int index)
         {
-            VisualElement pipeVisual = m_PipeElements[index];
+            if (IsCompleting || m_PipeNodes == null || m_PipeAngles == null)
+                return;
 
-            // Reads the current visual angle (which might be mid-animation, e.g., 45.3 degrees)
-            float currentVisualAngle = pipeVisual.resolvedStyle.rotate.angle.value;
+            if (index < 0 || index >= m_PipeElements.Count)
+                return;
 
-            // Clamp it to the nearest valid 90-degree increment
-            // Example: 45.3 / 90 = 0.503. 0.503 rounded = 1. 1*90=90 which means it's now snapped to an increment of 90
-            float clampedAngle = Mathf.Round(currentVisualAngle / 90f) * 90f;
-
-            // Increment the snap to the next 90
-            float newAngle = clampedAngle + 90f;
-
-            // Update the UI 
-            pipeVisual.style.rotate = new StyleRotate(new Rotate(new Angle(newAngle, AngleUnit.Degree)));
-
-            // Update the data
-            m_PipeNodes[index].RotateClockwise();
+            ApplyRotation(index);
 
             if (CheckWinCondition()) HandleWinSequence(); //Won?
         }
@@ -148,8 +184,7 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
                 pipe.pickingMode = PickingMode.Ignore;
             }
 
-            // Use UI Toolkit's native scheduler to wait 1 second before running CompleteTask()
-            m_MiniGameUI.rootVisualElement.schedule.Execute(CompleteTask).StartingIn(1500);
+            ScheduleCompletion();
         }
 
         #region Depth-First Search Algorithm
@@ -170,6 +205,15 @@ namespace Content.Scripts.Managers.FSM.Tasks.Maintenance
             if (isSolved) DisplayWaterPath(visited);
 
             return isSolved;
+        }
+
+        /// <summary>
+        ///     Silent connectivity probe used while scrambling (no green paint).
+        /// </summary>
+        private bool IsPathConnected()
+        {
+            var visited = new HashSet<int>();
+            return DFS(m_StartIndex, visited);
         }
 
         /// <summary>

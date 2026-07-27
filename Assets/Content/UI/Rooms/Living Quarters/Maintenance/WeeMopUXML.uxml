@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Living%20Quarters/Maintenance/WeeMopUSS.uss"/>
+    <ui:VisualElement class="wee-container">
+        <ui:Label text="Mop the Puddles!" class="wee-title"/>
+        <ui:Label name="wee-status" text="Puddles left: 5" class="wee-status"/>
+        <ui:VisualElement class="wee-field">
+            <ui:VisualElement class="wee-puddle"/>
+            <ui:VisualElement class="wee-puddle"/>
+            <ui:VisualElement class="wee-puddle"/>
+            <ui:VisualElement class="wee-puddle"/>
+            <ui:VisualElement class="wee-puddle"/>
+        </ui:VisualElement>
+        <ui:Label text="Each puddle needs two mop passes" class="wee-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

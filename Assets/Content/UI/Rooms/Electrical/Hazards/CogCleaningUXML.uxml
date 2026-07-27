@@ -1,0 +1,41 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Electrical/Hazards/CogCleaningUSS.uss"/>
+    <ui:VisualElement class="cog-container">
+        <ui:Label text="Scrub the Cogs!" class="cog-title"/>
+        <ui:Label name="cog-status" text="Grime left: 9" class="cog-status"/>
+        <ui:VisualElement class="cog-row">
+            <ui:VisualElement class="cog-slot">
+                <ui:VisualElement class="brush-zone"/>
+                <ui:VisualElement class="cog">
+                    <ui:VisualElement class="cog-spoke"/>
+                    <ui:VisualElement class="cog-spoke cog-spoke-cross"/>
+                    <ui:VisualElement class="cog-grime grime-0"/>
+                    <ui:VisualElement class="cog-grime grime-1"/>
+                    <ui:VisualElement class="cog-grime grime-2"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="cog-slot">
+                <ui:VisualElement class="brush-zone"/>
+                <ui:VisualElement class="cog">
+                    <ui:VisualElement class="cog-spoke"/>
+                    <ui:VisualElement class="cog-spoke cog-spoke-cross"/>
+                    <ui:VisualElement class="cog-grime grime-0"/>
+                    <ui:VisualElement class="cog-grime grime-1"/>
+                    <ui:VisualElement class="cog-grime grime-2"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="cog-slot">
+                <ui:VisualElement class="brush-zone"/>
+                <ui:VisualElement class="cog">
+                    <ui:VisualElement class="cog-spoke"/>
+                    <ui:VisualElement class="cog-spoke cog-spoke-cross"/>
+                    <ui:VisualElement class="cog-grime grime-0"/>
+                    <ui:VisualElement class="cog-grime grime-1"/>
+                    <ui:VisualElement class="cog-grime grime-2"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Label text="Click a cog when its grime reaches the brush" class="cog-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

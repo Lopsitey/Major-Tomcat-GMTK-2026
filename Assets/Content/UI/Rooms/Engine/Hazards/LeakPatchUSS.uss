@@ -1,0 +1,96 @@
+.leak-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(18, 30, 34, 0.94);
+    padding: 20px;
+}
+
+.leak-title {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 6px;
+    -unity-font-style: bold;
+}
+
+.leak-status {
+    font-size: 16px;
+    color: #a8d6dd;
+    margin-bottom: 14px;
+}
+
+.leak-section-label {
+    font-size: 15px;
+    color: #7fa4ab;
+    margin-bottom: 6px;
+}
+
+.leak-hull {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 540px;
+    height: 130px;
+    background-color: rgba(58, 74, 78, 0.9);
+    border-width: 4px;
+    border-color: #13232a;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
+
+.leak-hole {
+    background-color: #0a1418;
+    border-width: 4px;
+    border-color: #2b4a52;
+    border-radius: 999px;
+    margin: 10px;
+    cursor: hand;
+}
+
+.leak-hole:hover {
+    border-color: #7dd8ee;
+}
+
+.leak-sealed {
+    background-color: #4a6b52;
+    border-color: #7dff8a;
+}
+
+.leak-rack {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 540px;
+    height: 130px;
+    background-color: rgba(40, 48, 52, 0.9);
+    border-width: 4px;
+    border-color: #13232a;
+    border-radius: 10px;
+}
+
+.leak-patch {
+    background-color: #b9793a;
+    border-width: 4px;
+    border-color: #6d4319;
+    border-radius: 999px;
+    margin: 10px;
+    cursor: hand;
+    transition: opacity 0.2s ease, scale 0.12s ease;
+}
+
+.leak-patch:hover {
+    scale: 1.06;
+}
+
+.leak-selected {
+    border-color: #ffffff;
+    scale: 1.12;
+}
+
+.leak-hint {
+    font-size: 14px;
+    color: #6e8f96;
+    margin-top: 16px;
+}

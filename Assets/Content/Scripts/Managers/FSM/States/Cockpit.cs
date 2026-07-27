@@ -8,7 +8,7 @@ namespace Content.Scripts.Managers.FSM.States
 
         protected override void UpdateCat()
         {
-            // Litter Box task logic is handled via UI interactions
+            // Nose Cone Twist (and other cockpit tasks) are handled via UI interactions
         }
     }
 }

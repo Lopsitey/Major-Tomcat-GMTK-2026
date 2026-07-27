@@ -24,27 +24,29 @@ VisualElement {
 }
 
 .type-source {
-    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=1544844946&guid=75840724526e11e43af6ca085295a8d9&type=3#source");
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=469185731&guid=7dff4187337caa94a94fef7a65d551ac&type=3#source");
 }
 
 .type-cross {
-    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-1206185368&guid=75840724526e11e43af6ca085295a8d9&type=3#cross");
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=567081776&guid=7dff4187337caa94a94fef7a65d551ac&type=3#cross");
 }
 
 .type-straight-horizontal {
-    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-1771988087&guid=75840724526e11e43af6ca085295a8d9&type=3#straight");
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-2025190205&guid=7dff4187337caa94a94fef7a65d551ac&type=3#straight");
 }
 
 .type-straight-vertical {
-    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-1771988087&guid=75840724526e11e43af6ca085295a8d9&type=3#straight");
-    rotate: 90deg;
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-2025190205&guid=7dff4187337caa94a94fef7a65d551ac&type=3#straight");
 }
 
 .type-corner {
-    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-1675557835&guid=75840724526e11e43af6ca085295a8d9&type=3#corner");
-    
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=1736792145&guid=7dff4187337caa94a94fef7a65d551ac&type=3#corner");
 }
 
 .type-end {
-    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=1993782498&guid=75840724526e11e43af6ca085295a8d9&type=3#end");
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=1880025770&guid=7dff4187337caa94a94fef7a65d551ac&type=3#end");
+}
+
+.type-tjunction {
+    background-image: url("project://database/Assets/Media/Pipes/cross.png?fileID=-1776935814&guid=7dff4187337caa94a94fef7a65d551ac&type=3#tjunction");
 }

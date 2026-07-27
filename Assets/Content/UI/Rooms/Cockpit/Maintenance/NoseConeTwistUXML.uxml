@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Cockpit/Maintenance/NoseConeTwistUSS.uss"/>
+    <ui:VisualElement class="nose-container">
+        <ui:Label text="Twist the Nose Cone!" class="nose-title"/>
+        <ui:VisualElement class="nose-stack">
+            <ui:VisualElement class="nose-ring ring-outer"/>
+            <ui:VisualElement class="nose-ring ring-mid"/>
+            <ui:VisualElement class="nose-ring ring-inner"/>
+        </ui:VisualElement>
+        <ui:Label text="Click rings until the stripes line up" class="nose-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

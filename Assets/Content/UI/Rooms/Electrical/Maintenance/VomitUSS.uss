@@ -21,24 +21,131 @@
     justify-content: center;
     align-items: center;
     width: 90%;
-    gap: 20px;
 }
 
+/* Base splodge shape — asymmetric corners instead of a perfect circle so each
+   spot reads as an organic puddle rather than a clean geometric blob. */
 .vomit-spot {
-    width: 80px;
-    height: 80px;
-    background-color: #8B6914;
-    border-radius: 50%;
+    position: relative;
+    width: 82px;
+    height: 72px;
+    margin: 10px;
+    background-color: #5f6b1e;
+    border-top-left-radius: 65%;
+    border-top-right-radius: 38%;
+    border-bottom-right-radius: 58%;
+    border-bottom-left-radius: 42%;
     cursor: hand;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .vomit-spot:hover {
-    background-color: #A0821A;
     scale: 1.1;
 }
 
 .vomit-spot:active {
     scale: 0.9;
+}
+
+/* Uneven sizing, rotation and offset per spot — nothing lines up neatly. */
+.vomit-spot--1 {
+    width: 90px;
+    height: 66px;
+    rotate: -9deg;
+}
+
+.vomit-spot--2 {
+    width: 68px;
+    height: 80px;
+    rotate: 14deg;
+    translate: 0 10px;
+}
+
+.vomit-spot--3 {
+    width: 98px;
+    height: 62px;
+    rotate: -4deg;
+    translate: 0 -8px;
+}
+
+.vomit-spot--4 {
+    width: 74px;
+    height: 86px;
+    rotate: 20deg;
+    translate: 4px 6px;
+}
+
+.vomit-spot--5 {
+    width: 84px;
+    height: 68px;
+    rotate: -16deg;
+    translate: -4px 2px;
+}
+
+/* Messy green-brown colour variants so the mess doesn't look uniform. */
+.vomit-tint-a {
+    background-color: #5f6b1e;
+}
+
+.vomit-tint-a:hover {
+    background-color: #76841f;
+}
+
+.vomit-tint-b {
+    background-color: #6b4e22;
+}
+
+.vomit-tint-b:hover {
+    background-color: #85622b;
+}
+
+.vomit-tint-c {
+    background-color: #4f5c22;
+}
+
+.vomit-tint-c:hover {
+    background-color: #67772c;
+}
+
+/* Overlapping "lobes" and drips break up each spot's silhouette so it reads
+   as a splodge instead of a single clean shape. These sit inside a
+   .vomit-spot with pointer events bubbling up, so clicks still register. */
+.vomit-blob {
+    position: absolute;
+}
+
+.vomit-blob--lobe {
+    width: 48%;
+    height: 52%;
+    top: -16%;
+    right: -14%;
+    background-color: rgba(122, 92, 34, 0.7);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 65%;
+    border-bottom-right-radius: 40%;
+    border-bottom-left-radius: 55%;
+    rotate: 18deg;
+}
+
+.vomit-blob--drip {
+    width: 32%;
+    height: 44%;
+    bottom: -20%;
+    left: 16%;
+    background-color: rgba(74, 84, 20, 0.75);
+    border-top-left-radius: 70%;
+    border-top-right-radius: 30%;
+    border-bottom-right-radius: 60%;
+    border-bottom-left-radius: 45%;
+    rotate: -12deg;
+}
+
+.vomit-blob--fleck {
+    width: 20%;
+    height: 22%;
+    top: 8%;
+    left: -12%;
+    background-color: rgba(139, 105, 20, 0.65);
+    border-radius: 50%;
 }

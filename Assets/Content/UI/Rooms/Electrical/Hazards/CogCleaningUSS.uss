@@ -1,0 +1,107 @@
+.cog-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 30, 32, 0.94);
+    padding: 20px;
+}
+
+.cog-title {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 6px;
+    -unity-font-style: bold;
+}
+
+.cog-status {
+    font-size: 16px;
+    color: #cfd8c4;
+    margin-bottom: 18px;
+}
+
+.cog-row {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.cog-slot {
+    flex-direction: column;
+    align-items: center;
+    width: 168px;
+}
+
+/* Sits above the cog so it never covers the cog's own click area */
+.brush-zone {
+    width: 62px;
+    height: 20px;
+    margin-bottom: 8px;
+    background-color: #d8b45a;
+    border-width: 3px;
+    border-color: #7a6428;
+    border-radius: 4px;
+}
+
+.cog {
+    width: 140px;
+    height: 140px;
+    border-radius: 999px;
+    background-color: #6b737a;
+    border-width: 10px;
+    border-color: #464d53;
+    cursor: hand;
+}
+
+.cog:hover {
+    border-color: #8c979f;
+}
+
+.cog-spoke {
+    position: absolute;
+    left: 55px;
+    top: 10px;
+    width: 10px;
+    height: 100px;
+    background-color: #4f575e;
+}
+
+.cog-spoke-cross {
+    rotate: 90deg;
+}
+
+.cog-grime {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    background-color: #4a3a20;
+    border-width: 3px;
+    border-color: #241c10;
+    transition: opacity 0.15s ease;
+}
+
+/* Offsets are measured from the cog's padding box, which the 10px border insets.
+   Clumps orbit the 120px content box centre (60, 60) at radius 44, spaced 120deg
+   apart starting at the top so clump 0 lines up with the brush at rotation 0. */
+.grime-0 {
+    left: 47px;
+    top: 3px;
+}
+
+.grime-1 {
+    left: 85px;
+    top: 69px;
+}
+
+.grime-2 {
+    left: 9px;
+    top: 69px;
+}
+
+.cog-hint {
+    font-size: 14px;
+    color: #8b948a;
+    margin-top: 18px;
+}

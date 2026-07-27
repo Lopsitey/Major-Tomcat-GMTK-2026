@@ -1,0 +1,58 @@
+.nose-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 28, 48, 0.92);
+    padding: 24px;
+}
+
+.nose-title {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 16px;
+    -unity-font-style: bold;
+}
+
+.nose-hint {
+    font-size: 14px;
+    color: #b8c4d8;
+    margin-top: 16px;
+}
+
+.nose-stack {
+    width: 280px;
+    height: 280px;
+    align-items: center;
+    justify-content: center;
+}
+
+.nose-ring {
+    position: absolute;
+    border-radius: 999px;
+    border-width: 8px;
+    border-color: #d4a017;
+    background-color: rgba(40, 55, 90, 0.5);
+}
+
+.ring-outer {
+    width: 240px;
+    height: 240px;
+    border-left-color: #ff5a5a;
+    border-top-color: #ff5a5a;
+}
+
+.ring-mid {
+    width: 170px;
+    height: 170px;
+    border-left-color: #5ad4ff;
+    border-top-color: #5ad4ff;
+}
+
+.ring-inner {
+    width: 100px;
+    height: 100px;
+    border-left-color: #7dff8a;
+    border-top-color: #7dff8a;
+}

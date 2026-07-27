@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Cockpit/Hazards/AlarmSilenceUSS.uss"/>
+    <ui:VisualElement class="alarm-container">
+        <ui:Label text="Silence the Alarms!" class="alarm-title"/>
+        <ui:Label name="alarm-status" text="Alarms blaring: 4" class="alarm-status"/>
+        <ui:VisualElement class="alarm-grid">
+            <ui:VisualElement class="alarm-lamp"/>
+            <ui:VisualElement class="alarm-lamp"/>
+            <ui:VisualElement class="alarm-lamp"/>
+            <ui:VisualElement class="alarm-lamp"/>
+        </ui:VisualElement>
+        <ui:Label text="Only the flashing lamp can be silenced" class="alarm-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

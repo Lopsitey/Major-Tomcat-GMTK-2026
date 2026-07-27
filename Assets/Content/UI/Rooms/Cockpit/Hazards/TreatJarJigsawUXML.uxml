@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Cockpit/Hazards/TreatJarJigsawUSS.uss"/>
+    <ui:VisualElement class="jigsaw-container">
+        <ui:Label text="Rebuild the Treat Jar!" class="jigsaw-title"/>
+        <ui:Label name="jigsaw-status" text="Click two shards to swap them" class="jigsaw-status"/>
+        <ui:VisualElement class="jigsaw-row">
+            <ui:Label class="jigsaw-shard"/>
+            <ui:Label class="jigsaw-shard"/>
+            <ui:Label class="jigsaw-shard"/>
+            <ui:Label class="jigsaw-shard"/>
+        </ui:VisualElement>
+        <ui:Label text="Put the shards back in order 1 to 4" class="jigsaw-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

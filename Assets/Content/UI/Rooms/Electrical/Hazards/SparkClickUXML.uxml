@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Electrical/Hazards/SparkClickUSS.uss"/>
+    <ui:VisualElement class="spark-container">
+        <ui:Label text="Ground the Sparks!" class="spark-title"/>
+        <ui:Label name="spark-status" text="Arcs grounded: 0/6" class="spark-status"/>
+        <ui:VisualElement class="spark-field">
+            <ui:VisualElement name="spark" class="spark"/>
+        </ui:VisualElement>
+        <ui:Label text="Hit each arc before it jumps somewhere else" class="spark-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

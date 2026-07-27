@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Engine/Hazards/LeakPatchUSS.uss"/>
+    <ui:VisualElement class="leak-container">
+        <ui:Label text="Patch the Coolant Leaks!" class="leak-title"/>
+        <ui:Label name="leak-status" text="Leaks open: 4" class="leak-status"/>
+        <ui:Label text="Hull" class="leak-section-label"/>
+        <ui:VisualElement class="leak-hull">
+            <ui:VisualElement class="leak-hole"/>
+            <ui:VisualElement class="leak-hole"/>
+            <ui:VisualElement class="leak-hole"/>
+            <ui:VisualElement class="leak-hole"/>
+        </ui:VisualElement>
+        <ui:Label text="Patch rack" class="leak-section-label"/>
+        <ui:VisualElement class="leak-rack">
+            <ui:VisualElement class="leak-patch"/>
+            <ui:VisualElement class="leak-patch"/>
+            <ui:VisualElement class="leak-patch"/>
+            <ui:VisualElement class="leak-patch"/>
+        </ui:VisualElement>
+        <ui:Label text="Pick a patch, then the hole it fits" class="leak-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

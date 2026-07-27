@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Engine/Maintenance/MouseHuntUSS.uss"/>
+    <ui:VisualElement class="mouse-container">
+        <ui:Label text="Round Up the Mice!" class="mouse-title"/>
+        <ui:Label name="mouse-status" text="Mice loose: 4" class="mouse-status"/>
+        <ui:VisualElement class="mouse-field">
+            <ui:VisualElement class="mouse"/>
+            <ui:VisualElement class="mouse"/>
+            <ui:VisualElement class="mouse"/>
+            <ui:VisualElement class="mouse"/>
+        </ui:VisualElement>
+        <ui:Label text="Click every mouse before the cat notices" class="mouse-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

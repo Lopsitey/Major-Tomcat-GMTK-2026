@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Cockpit/Maintenance/FoodSeesawUSS.uss"/>
+    <ui:VisualElement class="seesaw-container">
+        <ui:Label text="Balance the Food Seesaw!" class="seesaw-title"/>
+        <ui:Label name="seesaw-status" text="Tap the raised pan!" class="seesaw-status"/>
+        <ui:VisualElement class="seesaw-stage">
+            <ui:VisualElement name="seesaw-beam" class="seesaw-beam">
+                <ui:VisualElement name="pan-left" class="seesaw-pad"/>
+                <ui:VisualElement name="pan-right" class="seesaw-pad"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="seesaw-pivot"/>
+        </ui:VisualElement>
+        <ui:VisualElement class="balance-track">
+            <ui:VisualElement name="balance-fill" class="balance-fill"/>
+        </ui:VisualElement>
+        <ui:Label text="Hold it level until the bar fills" class="seesaw-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

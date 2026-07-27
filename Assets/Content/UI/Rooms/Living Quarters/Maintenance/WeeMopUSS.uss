@@ -1,0 +1,53 @@
+.wee-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 40, 54, 0.92);
+    padding: 20px;
+}
+
+.wee-title {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 6px;
+    -unity-font-style: bold;
+}
+
+.wee-status {
+    font-size: 16px;
+    color: #d8dfa8;
+    margin-bottom: 16px;
+}
+
+.wee-field {
+    width: 560px;
+    height: 320px;
+    background-color: rgba(58, 72, 90, 0.85);
+    border-width: 3px;
+    border-color: #2a3644;
+    border-radius: 10px;
+}
+
+.wee-puddle {
+    position: absolute;
+    width: 96px;
+    height: 66px;
+    background-color: #d8d24a;
+    border-radius: 999px;
+    border-width: 3px;
+    border-color: #a89b2c;
+    cursor: hand;
+    transition: opacity 0.18s ease, scale 0.18s ease;
+}
+
+.wee-puddle:hover {
+    border-color: #ffffff;
+}
+
+.wee-hint {
+    font-size: 14px;
+    color: #93a0b3;
+    margin-top: 16px;
+}

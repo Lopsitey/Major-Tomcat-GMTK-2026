@@ -20,18 +20,20 @@
     flex-wrap: wrap;
     justify-content: center;
     width: 90%;
-    gap: 16px;
     margin-bottom: 20px;
 }
 
 .litter-tray {
     width: 100px;
     height: 100px;
+    margin: 8px;
     background-color: #8B4513;
     border-width: 3px;
     border-color: #654321;
     border-radius: 8px;
-    cursor: hand;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     transition: all 0.2s ease;
 }
 
@@ -45,17 +47,10 @@
 }
 
 .litter-poo {
-    position: absolute;
     width: 60px;
     height: 60px;
-    background-image: url('project://database/Assets/Content/UI/Rooms/Cockpit/Maintenance/poo-emoji.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    cursor: hand;
     opacity: 0;
-}
-
-.litter-poo:hover {
-    scale: 1.1;
 }

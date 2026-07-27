@@ -145,16 +145,14 @@ namespace Content.Scripts.UI
         {
             if (m_PatienceBarsContainer == null) return null;
 
-            // Create container for label and progress bar
+            // Create container for label and progress bar. A dark pill sits behind the
+            // label text only so it stays legible over the bright sky/cloud backdrop.
             var barContainer = new VisualElement();
-            barContainer.style.flexDirection = FlexDirection.Column;
-            barContainer.style.marginBottom = 8f;
+            barContainer.AddToClassList("patience-bar-entry");
 
             // Create and add room label
             var roomLabel = new Label(roomName);
-            roomLabel.style.fontSize = 12f;
-            roomLabel.style.marginBottom = 4f;
-            roomLabel.style.color = new Color(1f, 1f, 1f, 0.8f);
+            roomLabel.AddToClassList("patience-bar-label");
             barContainer.Add(roomLabel);
 
             // Create and add ProgressBar

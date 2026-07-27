@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Engine/Hazards/FireExtinguishUSS.uss"/>
+    <ui:VisualElement class="fire-container">
+        <ui:Label text="Put Out the Engine Fire!" class="fire-title"/>
+        <ui:Label name="fire-status" text="Fires burning: 4" class="fire-status"/>
+        <ui:VisualElement class="fire-field">
+            <ui:VisualElement class="flame"/>
+            <ui:VisualElement class="flame"/>
+            <ui:VisualElement class="flame"/>
+            <ui:VisualElement class="flame"/>
+        </ui:VisualElement>
+        <ui:Label text="Each click knocks a flame down - they grow back" class="fire-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

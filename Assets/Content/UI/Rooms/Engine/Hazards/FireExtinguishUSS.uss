@@ -1,0 +1,56 @@
+.fire-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 16, 12, 0.94);
+    padding: 20px;
+}
+
+.fire-title {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 6px;
+    -unity-font-style: bold;
+}
+
+.fire-status {
+    font-size: 16px;
+    color: #ffc9a0;
+    margin-bottom: 16px;
+}
+
+.fire-field {
+    width: 560px;
+    height: 320px;
+    background-color: rgba(58, 40, 34, 0.9);
+    border-width: 3px;
+    border-color: #1e100c;
+    border-radius: 10px;
+}
+
+.flame {
+    position: absolute;
+    width: 82px;
+    height: 96px;
+    background-color: #f4842a;
+    border-width: 4px;
+    border-color: #7a2c08;
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    cursor: hand;
+    transition: scale 0.15s ease, background-color 0.15s ease, opacity 0.2s ease;
+}
+
+.flame:hover {
+    border-color: #ffe0a0;
+}
+
+.fire-hint {
+    font-size: 14px;
+    color: #b5836a;
+    margin-top: 16px;
+}

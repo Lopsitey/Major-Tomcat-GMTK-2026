@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Living%20Quarters/Hazards/PipeBurstUSS.uss"/>
+    <ui:VisualElement class="pipe-container">
+        <ui:Label text="Bleed the Burst Pipe!" class="pipe-title"/>
+        <ui:Label name="pipe-status" text="Releases left: 3" class="pipe-status"/>
+        <ui:VisualElement class="gauge-track">
+            <ui:VisualElement name="gauge-zone" class="gauge-zone"/>
+            <ui:VisualElement name="gauge-needle" class="gauge-needle"/>
+        </ui:VisualElement>
+        <ui:Button name="release-button" text="RELEASE" class="release-button"/>
+        <ui:Label text="Hit release while the needle is in the green" class="pipe-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

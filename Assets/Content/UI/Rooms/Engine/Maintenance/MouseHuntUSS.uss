@@ -1,0 +1,55 @@
+.mouse-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(34, 30, 26, 0.93);
+    padding: 20px;
+}
+
+.mouse-title {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 6px;
+    -unity-font-style: bold;
+}
+
+.mouse-status {
+    font-size: 16px;
+    color: #e0cbb0;
+    margin-bottom: 16px;
+}
+
+.mouse-field {
+    width: 560px;
+    height: 320px;
+    background-color: rgba(62, 56, 48, 0.9);
+    border-width: 3px;
+    border-color: #221e1a;
+    border-radius: 10px;
+}
+
+.mouse {
+    position: absolute;
+    width: 72px;
+    height: 44px;
+    background-color: #b9b3ab;
+    border-width: 3px;
+    border-color: #6d6760;
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    cursor: hand;
+}
+
+.mouse:hover {
+    background-color: #d8d2c9;
+}
+
+.mouse-hint {
+    font-size: 14px;
+    color: #9b8f7f;
+    margin-top: 16px;
+}

@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Electrical/Maintenance/WiresColourConnectUSS.uss"/>
+    <ui:VisualElement class="wire-container">
+        <ui:Label text="Reconnect the Loom!" class="wire-title"/>
+        <ui:Label name="wire-status" text="Wires left: 4" class="wire-status"/>
+        <ui:VisualElement class="wire-board">
+            <ui:VisualElement class="wire-column">
+                <ui:VisualElement class="wire-port wire-port-left"/>
+                <ui:VisualElement class="wire-port wire-port-left"/>
+                <ui:VisualElement class="wire-port wire-port-left"/>
+                <ui:VisualElement class="wire-port wire-port-left"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="wire-gap"/>
+            <ui:VisualElement class="wire-column">
+                <ui:VisualElement class="wire-port wire-port-right"/>
+                <ui:VisualElement class="wire-port wire-port-right"/>
+                <ui:VisualElement class="wire-port wire-port-right"/>
+                <ui:VisualElement class="wire-port wire-port-right"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Label text="Click a left port, then its colour on the right" class="wire-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Content/UI/Rooms/Living%20Quarters/Hazards/OilMopUSS.uss"/>
+    <ui:VisualElement class="oil-container">
+        <ui:Label text="Mop the Oil Spill!" class="oil-title"/>
+        <ui:Label name="oil-status" text="Oil mopped: 0/6" class="oil-status"/>
+        <ui:VisualElement class="oil-field">
+            <ui:VisualElement class="oil-slick"/>
+            <ui:VisualElement class="oil-slick"/>
+            <ui:VisualElement class="oil-slick"/>
+            <ui:VisualElement class="oil-slick"/>
+            <ui:VisualElement class="oil-slick"/>
+            <ui:VisualElement class="oil-slick"/>
+            <ui:VisualElement class="oil-slick"/>
+            <ui:VisualElement class="oil-slick"/>
+        </ui:VisualElement>
+        <ui:Label text="It keeps spreading - mop faster than it seeps" class="oil-hint"/>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,52 @@
+.spark-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(18, 20, 30, 0.94);
+    padding: 20px;
+}
+
+.spark-title {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 6px;
+    -unity-font-style: bold;
+}
+
+.spark-status {
+    font-size: 16px;
+    color: #9fd0ff;
+    margin-bottom: 16px;
+}
+
+.spark-field {
+    width: 560px;
+    height: 320px;
+    background-color: rgba(38, 42, 58, 0.9);
+    border-width: 3px;
+    border-color: #12141c;
+    border-radius: 10px;
+}
+
+.spark {
+    position: absolute;
+    width: 84px;
+    height: 84px;
+    background-color: #6fd8ff;
+    border-width: 5px;
+    border-color: #ffffff;
+    border-radius: 12px;
+    cursor: hand;
+}
+
+.spark:hover {
+    background-color: #b6ecff;
+}
+
+.spark-hint {
+    font-size: 14px;
+    color: #6e7c95;
+    margin-top: 16px;
+}
